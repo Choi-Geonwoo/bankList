@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.banklist.mapper.bank.WthdrMapper" >
+    <select id="wthdrTrdtc" resultType="com.bank.banklist.dto.bank.WthdrDto">
+        select 
+          '11111' as  id, 
+          '11111' as  trnscDate, 
+          '11111' as  nameBank, 
+          '11111' as  driefs,
+          '11111' as  ypeDtls,
+          '11111' as  price,
+          '11111' as rgstrDate
+        from dual
+    </select>
+</mapper>

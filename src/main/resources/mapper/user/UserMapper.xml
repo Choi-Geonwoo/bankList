@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.banklist.mapper.user.UserMapper">
+
+<select id = "login" parameterType="com.bank.banklist.dto.user.UserDto" resultType="com.bank.banklist.dto.user.UserDto">
+    with t_user1 as (
+      select 
+           'user' as username, '$2a$10$OGrQlWhFNlSYjyW5Kf/rceoSwePNqRsEq6HNzzpq5jDFwHWJSoGSq'  as password
+      from dual
+        )
+      select max(username) as username ,max(password) as password from t_user1
+      where username = #{username}
+</select>
+</mapper>
