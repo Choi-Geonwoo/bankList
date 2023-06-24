@@ -1,0 +1,59 @@
+<!--resources/templates/thymeleafEx.html-->
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http//www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/JS/USER/joinMembership.js}"></script>
+    <script type="text/javascript" th:src="@{/JS/COMMON/common.js}"></script>
+</head>
+<body>
+    <div layout:fragment="content">
+        <br>
+        <h2>회원가입</h2>
+        <form name="form1" method="post" action="/user/joinMembership.do">
+            <table border="1" width="400px">
+                <tr>
+                    <td>회원 ID</td>
+                    <td>
+                        <input type="text" id="id" name="id" minlength="5" maxlength="15">  <button type="button" id="btnLogin" onclick="loginIdCheck();">중복확인 </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>회원 비밀번호</td>
+                    <td>
+                        <input type="password" id="pwd" name="pwd" minlength="8" maxlength="20">
+                    </td>
+                </tr>
+                <tr>
+                    <td>회원 닉네임</td>
+                    <td>
+                        <input type="text" id="ncknm" name="ncknm" minlength="3" maxlength="15">
+                    </td>
+                </tr>
+                <tr>
+                    <td>회원 이메일</td>
+                    <td>
+                        <input type="email" id="email" name="email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>회원 전화번호</td>
+                    <td>
+                        <input type="number" id="phone" name="phone">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="button" id="btnLogin" onclick="joinMembershipCheck();">로그인 </button>
+                    </td>
+            </tr>
+            </table>
+        </form>
+    <br>
+    </div>
+</body>
+</html>

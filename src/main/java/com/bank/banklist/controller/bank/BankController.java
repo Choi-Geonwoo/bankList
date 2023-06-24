@@ -22,11 +22,4 @@ public class BankController {
         return "view/bank/dpst";
     }
 
-    // 출금
-    @GetMapping("/bank/wthdr")
-    public String wthdrTrdtcView(Model model){
-        model.addAttribute("title", "출금 화면");
-        model.addAttribute("wDto", bankService.wthdrTrdtc(null));
-        return "view/bank/wthdr";
-    }
 }

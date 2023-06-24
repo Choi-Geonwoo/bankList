@@ -4,12 +4,41 @@
 <mapper namespace="com.bank.banklist.mapper.user.UserMapper">
 
 <select id = "login" parameterType="com.bank.banklist.dto.user.UserDto" resultType="com.bank.banklist.dto.user.UserDto">
-    with t_user1 as (
-      select 
-           'user' as username, '$2a$10$OGrQlWhFNlSYjyW5Kf/rceoSwePNqRsEq6HNzzpq5jDFwHWJSoGSq'  as password
-      from dual
-        )
-      select max(username) as username ,max(password) as password from t_user1
-      where username = #{username}
+          select 
+              max(id) as id ,
+              max(pwd) as pwd 
+          from TB_MEMBERDATA
+      where id = #{id}
 </select>
+
+<insert id = "joinMembership" parameterType="com.bank.banklist.dto.user.UserDto" >
+    INSERT /* com.bank.banklist.mapper.user.UserMapper.joinMembership */
+        INTO  TB_MEMBERDATA
+        ( SERIAL,
+          ID,
+          PWD,
+          NCKNM,
+          EMAIL,
+          PHONE,
+          STATEEDCODE,
+          RGSTRDATE)
+        VALUES(
+          LPAD(member_seq.NEXTVAL,10,0),
+          #{id},
+          #{pwd},
+          #{ncknm},
+          #{email},
+          #{phone},
+        'E',
+        SYSDATE 
+        )
+</insert>
+
+
+<!-- 아이디 중복 체크 -->
+	<select id="loginIdCheck" parameterType="String" resultType="int">
+		SELECT COUNT(id) FROM TB_MEMBERDATA WHERE id= #{id}
+	</select>
+	
+
 </mapper>

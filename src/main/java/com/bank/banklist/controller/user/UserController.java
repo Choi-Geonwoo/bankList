@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bank.banklist.dto.user.UserDto;
 import com.bank.banklist.service.user.UserService;
@@ -44,4 +46,41 @@ public class UserController {
         //model.addAttribute("searchUrl", "/");
         return "msg/message";
     }
+
+    // 회원가입 페이지
+    @GetMapping("/user/joinMembership")
+    public String joinMembershipView(Model model){
+        model.addAttribute("title", "회원 화면");
+       
+        return "view/user/joinMembership";
+    }
+
+    // 회원가입
+    @PostMapping("/user/joinMembership.do")
+    public String joinMembership(Model model, @ModelAttribute UserDto uDto){
+        //model.addAttribute("title", "회원 화면");
+       
+        model.addAttribute("message", userService.joinMembership(uDto));
+        return "msg/message";
+    }
+
+        // 아이디 중복 체크
+    @GetMapping("/user/loginIdCheck.do")
+    @ResponseBody
+    public int loginIdCheck(@RequestParam("id") String id){
+        log.debug("############################");
+        log.debug("############################");
+        log.debug("############################");
+        log.debug("############################");
+        log.debug("############################");
+        log.debug("############################");
+        int cnt  = userService.loginIdCheck(id);
+        log.debug("############# | | | "+cnt+"##############");
+        log.debug("############################");
+        log.debug("############################");
+        log.debug("############################");
+        log.debug("############################");
+        return cnt;
+    }
+
 }
