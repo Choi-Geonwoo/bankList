@@ -1,0 +1,43 @@
+<!--resources/templates/thymeleafEx.html-->
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/default}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>엑셀 업로드</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+  <script type="text/javascript" th:src="@{/JS/BANK/uploadExcel.js}"></script>
+<script>
+ 
+</script>
+</head>
+<body>
+    <body>
+<div layout:fragment="content">
+  <br>
+<!--
+  파일 선택 : <input type="file" id="excelFile" onchange="excelExport(event)"/>
+<h1>Header 정보 보기</h1>
+<div id="displayHeaders"></div>
+<h1>JSON 형태로 보기</h1>
+<div id="displayExcelJson"></div>
+<h1>CSV 형태로 보기</h1>
+<div id="displayExcelCsv"></div>
+<h1>HTML 형태로 보기</h1>
+<div id="displayExcelHtml"></div>
+
+-->
+파일 선택 : <input type="file" id="excelFile" onchange="readExcel()"/>
+<h1>테이블 형태로 보기</h1>
+<input type="button" onclick="homzzang();" value="클릭">
+<div id="displayExcelTable">
+    <form id="optionForm" method="post"  action="">
+		    <div id="scrollDiv" class="scrollDiv"  name="scrollDiv">
+		    </div>
+	</form>
+</div>
+</body>
+</html>

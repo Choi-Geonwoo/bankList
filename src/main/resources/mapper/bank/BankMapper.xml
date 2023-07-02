@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.banklist.mapper.bank.BankMapper">
+
+<select id = "bankList" parameterType="map" resultType="map">
+          select 
+          row_number() over (order by coalesce(cast(a.wthdrdate as INTEGER), cast(B.dpstdate as INTEGER))) as a_no
+          , coalesce(a.wthdrnamebank,'') as wthdrnamebank, coalesce(a.wthdrdate,'') as wthdrdate, coalesce(a.wthdrbriefs, '') as wthdrbriefs, coalesce(a.wthdrbriefsdetail, '') as wthdrbriefsdetail, coalesce(a.wthdrprice, '') as wthdrprice
+          , coalesce(b.dpstnamebank,'') as dpstnamebank, coalesce(b.dpstdate,'') as dpstdate, coalesce(b.dpstbriefs,'') as dpstbriefs, coalesce(b.dpstbriefsdetail,'') as dpstbriefsdetail, coalesce(b.dpstprice,'') as dpstprice
+          from tb_wthdrDtls a
+              full join tb_dpstDtls b
+          on a.id = b.id and a.wthdrNameBank = b.dpstNameBank and a.wthdrdate = b.dpstdate
+          where b.id = #{id} or a.id = #{id}
+		  /*LIMIT 5 OFFSET 0 LIMIT #{rowCount} OFFSET #{offset} */
+		  
+</select>
+
+
+<select id = "getListPage" parameterType="com.bank.banklist.dto.common.PaginationVo" resultType="map">
+				SELECT
+						*
+					FROM
+						(
+						SELECT
+							*
+						FROM
+							(
+							SELECT
+									ROW_NUMBER() OVER ( ORDER BY COALESCE(to_number(REGEXP_REPLACE(a.wthdrdate, '[[:punct:]]', '')), to_number( REGEXP_REPLACE(b.dpstdate, '[[:punct:]]', '')) ))AS a_no,
+									COALESCE(a.wthdrnamebank, ' ') AS wthdrnamebank,
+									COALESCE(a.wthdrdate, ' ') AS wthdrdate,
+									COALESCE(a.wthdrbriefs, ' ') AS wthdrbriefs,	
+									COALESCE(a.wthdrbriefsdetail, ' ') AS wthdrbriefsdetail,
+									COALESCE(a.wthdrprice, ' ') AS wthdrprice ,
+									COALESCE(b.dpstnamebank, ' ') AS dpstnamebank,
+									COALESCE(b.dpstdate, ' ') AS dpstdate,
+									COALESCE(b.dpstbriefs, ' ') AS dpstbriefs,
+									COALESCE(b.dpstbriefsdetail, ' ') AS dpstbriefsdetail,
+									COALESCE(b.dpstprice, ' ') AS dpstprice
+							FROM
+									tb_wthdrDtls a
+							FULL JOIN tb_dpstDtls b
+										ON
+									a.id = b.id
+								AND a.wthdrNameBank = b.dpstNameBank
+								AND a.wthdrdate = b.dpstdate
+							WHERE
+								(b.id = #{id} OR a.id = #{id})
+										<choose>
+											<when test="'nameBank' == searchType">
+											<!-- 은행 -->
+												and (b.dpstnamebank like '%'|| #{keyword}  ||'%' or a.wthdrNameBank like '%'|| #{keyword}   ||'%')
+											</when>
+											<when test="'brief' == searchType">
+											<!-- 적요 -->
+												and (b.dpstBriefs like '%'|| #{keyword}  ||'%' or a.wthdrBriefs like '%'|| #{keyword}   ||'%')
+											</when>
+											<when test="'briefDetails' == searchType">
+											<!-- 적요상세 -->
+												and (b.dpstBriefsDetail like '%'|| #{keyword}  ||'%' or a.wthdrBriefsDetail like '%'|| #{keyword}   ||'%')
+											</when>
+										</choose>
+						)
+							
+						WHERE
+							a_no 	<![CDATA[ <= 	]]> (#{page} * #{rowCount})
+					)
+					WHERE (((#{page}-1) * #{rowCount}) + 1) <![CDATA[<=	]]> a_no
+</select>
+
+<select id = "bankListCount" parameterType="String" resultType="int">
+          select 
+          		count(*) 
+          from tb_wthdrDtls a
+              full join tb_dpstDtls b
+          on a.id = b.id and a.wthdrNameBank = b.dpstNameBank and a.wthdrdate = b.dpstdate
+          where (b.id = #{id} or a.id = #{id}	)
+		  										<choose>
+											<when test="'nameBank' == searchType">
+											<!-- 은행 -->
+												and (b.dpstnamebank like '%'|| #{keyword}  ||'%' or a.wthdrNameBank like '%'|| #{keyword}   ||'%')
+											</when>
+											<when test="'brief' == searchType">
+											<!-- 적요 -->
+												and (b.dpstBriefs like '%'|| #{keyword}  ||'%' or a.wthdrBriefs like '%'|| #{keyword}   ||'%')
+											</when>
+											<when test="'briefDetails' == searchType">
+											<!-- 적요상세 -->
+												and (b.dpstBriefsDetail like '%'|| #{keyword}  ||'%' or a.wthdrBriefsDetail like '%'|| #{keyword}   ||'%')
+											</when>
+										</choose>
+</select>
+
+</mapper>

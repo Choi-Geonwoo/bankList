@@ -4,15 +4,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bank.banklist.mapper.bank.WthdrMapper" >
-    <select id="wthdrTrdtc" resultType="com.bank.banklist.dto.bank.WthdrDto">
+    
+<select id = "wthdrList" resultType="com.bank.banklist.dto.bank.WthdrDto">
+          select 
+                  a.wthdrnamebank, a.wthdrdate, a.wthdrbriefs, a.wthdrbriefsdetail, a.wthdrprice
+          from tb_wthdrDtls a 
+            where a.id = #{id}
+</select>
+
+    <select id="wthdrExceInsert" parameterType="hashMap" resultType="com.bank.banklist.dto.bank.WthdrDto">
         select 
-          '11111' as  id, 
-          '11111' as  trnscDate, 
-          '11111' as  nameBank, 
-          '11111' as  driefs,
-          '11111' as  ypeDtls,
-          '11111' as  price,
-          '11111' as rgstrDate
+          #{titl_0} as  id1
         from dual
     </select>
+
+    <insert id="wthdrdtlsInsert" parameterType="map" >
+    INSERT 	
+        INTO
+	        TB_WTHDRDTLS
+      ( SERIAL,
+        ID,
+        WTHDRNAMEBANK,
+        WTHDRDATE,
+        WTHDRBRIEFS,
+        WTHDRBRIEFSDETAIL,
+        WTHDRPRICE,
+        RGSTRDATE)
+      VALUES(
+        TB_WTHDRDTLS_SEQ.NEXTVAL,
+          #{id},
+          #{wthdrNameBank},
+          #{wthdrDate},
+          #{wthdrBriefs},
+          #{wthdrBriefsDetail},
+          #{wthdrPrice},
+          SYSDATE 
+      )
+
+    </insert>
 </mapper>

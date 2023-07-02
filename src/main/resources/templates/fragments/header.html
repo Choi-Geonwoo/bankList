@@ -11,11 +11,14 @@
         <!--header 영역입니다.-->
         <h1 th:text="${title}"></h1>
         <br>
-        <a href="/">홈</a>
-        <a href="/user/login">로그인</a>
+        <a th:if="${#strings.isEmpty(session.userId)}" href="/">홈 이동</a>
+        <a th:if="${!#strings.isEmpty(session.userId)}" th:text="${session.userId}" herf="#"></a>
+        <a th:if="${#strings.isEmpty(session.userId)}"  href="/user/login">로그인</a>
+        <a th:if="${!#strings.isEmpty(session.userId)}" href="/user/logout.do" role="button">로그아웃</a>
+        <a href="/user/joinMembership">회원가입</a>
+        <a href="/bank/bankList">전체내역</a>
         <a href="/bank/dpst">입금</a>
         <a href="/bank/wthdr">출금</a>
-        <a href="/file/uploadExcel">엑셀 업로드</a>
         
     </div>
 </body>

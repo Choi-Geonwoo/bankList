@@ -8,9 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new LogInterceptor());
-        //.addPathPatterns("/*");
-        //.excludePathPatterns(null); //url 제외
+        registry.addInterceptor(new LogInterceptor())
+                .order(1)	// 적용할 필터 순서 설정
+				.addPathPatterns("/**")
+				.excludePathPatterns("/error"); // 인터셉터에서 제외할 패턴
+
+		registry.addInterceptor(new LoginCheckInterceptor())
+                .order(2)	// 적용할 필터 순서 설정
+				.addPathPatterns("/**")
+				.excludePathPatterns("/","/user/**", "/user/logout.do", "/CSS/**", "/JS/**", "/mapper/**"); // 인터셉터에서 제외할 패턴
 
     }
 }

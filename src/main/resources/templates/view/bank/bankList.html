@@ -1,0 +1,88 @@
+<!--resources/templates/thymeleafEx.html-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http//www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전체 내역 조회 화면</title>
+  <script type="text/javascript" th:src="@{/JS/BANK/bank.js}"></script>
+</head>
+<body>
+  <div layout:fragment="content">
+    <br>
+    <label>은행 전체 내역 조회</label>  
+      <form class="form" action="/bank/bankList"  id="searchForm" name="searchForm" >
+
+        <select class="searchType" id="searchType" name="searchType">
+          <option value="">없음</option>
+          <option value="nameBank" th:selected="${pageVo.searchType == 'nameBank'}">은행명</option>
+          <option value="brief" th:selected="${pageVo.searchType == 'brief'}">적요</option>
+          <option value="briefDetails" th:selected="${pageVo.searchType == 'briefDetails'}">적요상세</option>
+        </select>
+        <input type="text"  th:value="${pageVo.keyword}"  name="keyword" id="keyword">
+        
+        <button type="button" id="searchButton" onclick="searchBtn();">검색 </button>
+      </form>
+     
+    <br>
+    조회 건수 : <label th:text="${bDtoCount}"></label>
+    <br>
+    <p>
+    </p>
+    <br>
+    <br>
+<table id="bDtoList">
+      <tr th:each="bDtoList : ${bDto}">
+        <td th:text="${bDtoList.A_NO}">1</td>
+
+        <td th:text="${bDtoList.WTHDRNAMEBANK}">1</td>
+        <td th:text="${bDtoList.WTHDRDATE}">2</td>
+        <td th:text="${bDtoList.DPSTBRIEFS}">3</td>
+        <td th:text="${bDtoList.WTHDRBRIEFSDETAIL}">4</td>
+        <td th:text="${bDtoList.WTHDRPRICE}">5</td>
+        
+        <td th:text="${bDtoList.DPSTNAMEBANK}">6</td>
+        <td th:text="${bDtoList.DPSTDATE}">7</td>
+        <td th:text="${bDtoList.DPSTBRIEFS}">8</td>
+        <td th:text="${bDtoList.DPSTBRIEFSDETAIL}">9</td>
+        <td th:text="${bDtoList.DPSTDATE}">10</td>
+      </tr>
+    </table>
+    <br>
+    
+    <div id="pagination">
+
+      <th:block th:if="${bDtoCount != 0}">
+
+          <!-- 맨 처음 페이지로 이동하는 버튼 -->
+            <span th:if="${pageVo.startPage > 1}">
+                <a th:href="@{'/bank/bankList?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page=1'}" th:text="'처음&emsp;'"></a>
+            </span>
+        
+          <!-- 이전 블록으로 이동하는 버튼 -->
+            <span th:if="${pageVo.isPrev == true}">
+              <a th:href="@{'/bank/bankList?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.startPage - 1}}" th:text="'이전'"></a>
+            </span>
+        
+            <!-- 시퀀스 보여주는 값을 변경. -->
+            <span th:each="pageNum : ${#numbers.sequence(pageVo.startPage, pageVo.endPage)}">
+                <a class="div2" th:href="@{'/bank/bankList?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageNum}}" th:text="|&emsp;${pageNum}&emsp;|"></a>
+            </span>
+          
+            <!-- 다음 블록으로 이동하는 버튼 -->
+            <span th:if="${pageVo.isNext == true}">
+          <a th:href="@{'/bank/bankList?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+|${pageVo.endPage + 1}|}" th:text="'다음'"></a>
+            </span>
+          
+            <!-- 맨 뒷 페이지로 이동하는 버튼 -->
+            <span th:if="${pageVo.endPage < pageVo.totalPageCount}">
+          <a th:href="@{'/bank/bankList?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.totalPageCount}}" th:text="|&emsp;끝|"></a>
+            </span>
+            
+      </th:block>
+    </div>    
+    <br>
+</div>
+
+</body>
+</html>

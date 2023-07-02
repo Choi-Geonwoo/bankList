@@ -15,23 +15,5 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class FileController {
-    // 입금
-    @GetMapping("/file/uploadExcel")
-    public String uploadExcelView(Model model){
-        model.addAttribute("title", "엑셀 업로드 화면");
-       
-        return "view/file/uploadExcel";
-    }
-    // 엑셀 거래내역 등록
-		@ResponseBody
-		@PostMapping(value = "/excelUpload.do")
-		public String excelUploadInsert(@RequestBody List<Map<String, Object>> param) throws Exception {
-			//log.info("은행 거랙 내역 등록 " );
-			for (Map<String, Object> str : param) {
-				log.info(": : :  " + str.toString());
-			}
-			//int commCnt = commonItemService.commonItemTableInsert(param);
-			//int bankCnt = bankService.bankRackDetailsTableInsert(param);
-			return "2";
-		}
+    
 }
