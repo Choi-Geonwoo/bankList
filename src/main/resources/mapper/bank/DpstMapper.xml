@@ -31,4 +31,16 @@
                         SYSDATE )
 
 </insert>
+      <update id="dpstExceUpdat" parameterType="map">
+            update TB_DPSTDTLS
+                  set 
+                      DPSTBRIEFS = #{dpstBriefs},
+                      DPSTBRIEFSDETAIL = #{dpstBriefsDetail},
+                      DPSTPRICE = #{dpstPrice},
+                      RGSTRDATE = SYSDATE
+                  where 
+                        ID = #{id}
+                        and DPSTNAMEBANK = #{dpstNameBank}
+                        and DPSTDATE = #{dpstDate}
+      </update>
 </mapper>

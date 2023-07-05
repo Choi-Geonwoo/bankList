@@ -4,11 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.bank.banklist.dto.bank.WthdrDto;
@@ -51,6 +57,16 @@ private BankService bankService;
             model.addAttribute("page", page);
             model.addAttribute("pageVo", paginationVo);
             return "view/bank/bankList";
+    }
+
+    
+    @ResponseBody
+    @PostMapping("/modifyingTransactionDetails2.do")
+    public String modifyingTransactionDetails2(@RequestBody  HashMap<String, Object> map, @SessionAttribute(name = "userId", required = false) String userId) throws Exception{
+        System.out.println(map.toString());
+        bankService.dpstExceUpdat(map, userId);
+	    
+         return "데이터 받음";
     }
 
 }

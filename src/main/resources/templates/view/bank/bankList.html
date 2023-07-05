@@ -33,19 +33,20 @@
     <br>
 <table id="bDtoList">
       <tr th:each="bDtoList : ${bDto}">
-        <td th:text="${bDtoList.A_NO}">1</td>
+        <!--<td th:text="${bDtoList.A_NO}">1</td>-->
 
-        <td th:text="${bDtoList.WTHDRNAMEBANK}">1</td>
-        <td th:text="${bDtoList.WTHDRDATE}">2</td>
-        <td th:text="${bDtoList.DPSTBRIEFS}">3</td>
-        <td th:text="${bDtoList.WTHDRBRIEFSDETAIL}">4</td>
-        <td th:text="${bDtoList.WTHDRPRICE}">5</td>
+        <td contenteditable="true" th:text="${bDtoList.WTHDRNAMEBANK}">1</td>
+        <td contenteditable="true" th:text="${bDtoList.WTHDRDATE}">2</td>
+        <td contenteditable="true" th:text="${bDtoList.WTHDRBRIEFS}">3</td>
+        <td contenteditable="true" th:text="${bDtoList.WTHDRBRIEFSDETAIL}">4</td>
+        <td contenteditable="true" th:text="${bDtoList.WTHDRPRICE}">5</td>
         
-        <td th:text="${bDtoList.DPSTNAMEBANK}">6</td>
-        <td th:text="${bDtoList.DPSTDATE}">7</td>
-        <td th:text="${bDtoList.DPSTBRIEFS}">8</td>
-        <td th:text="${bDtoList.DPSTBRIEFSDETAIL}">9</td>
-        <td th:text="${bDtoList.DPSTDATE}">10</td>
+        <td contenteditable="true" th:text="${bDtoList.DPSTNAMEBANK}">6</td>
+        <td contenteditable="true" th:text="${bDtoList.DPSTDATE}">7</td>
+        <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFS}">8</td>
+        <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFSDETAIL}">9</td>
+        <td contenteditable="true" th:text="${bDtoList.DPSTDATE}">10</td>
+        <td  ><button type="button" id="searchButton" onclick="tableBtn();">버튼</button></td>
       </tr>
     </table>
     <br>
