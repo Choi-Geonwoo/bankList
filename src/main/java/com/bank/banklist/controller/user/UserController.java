@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.bank.banklist.dto.user.UserDto;
 import com.bank.banklist.service.user.UserService;
@@ -76,6 +77,28 @@ public class UserController {
         //model.addAttribute("title", "회원 화면");
        
         model.addAttribute("message", userService.joinMembership(uDto));
+        return "msg/message";
+    }
+    
+    // 회원수정 페이지
+    @GetMapping("/user/mdfyMminf")
+    public String mdfyMminfView(Model model, 
+        @SessionAttribute(name = "userId", required = false) String userId){
+        UserDto uDto = new UserDto();
+        uDto.setId(userId);
+        //System.out.println("받은값 : " + uDto.toString());
+        model.addAttribute("title", "회원 수정 화면");
+        model.addAttribute("uDto", userService.login(uDto).get("uDto"));
+        return "view/user/mdfyMminf";
+    }
+
+    // 회원수정 
+    @PostMapping("/user/mdfyMminf.do")
+    public String mdfyMminf(Model model, @ModelAttribute UserDto uDto,
+    @SessionAttribute(name = "userId", required = false) String userId){
+        uDto.setId(userId);
+        //System.out.println("받은값 : " + uDto.toString());
+        model.addAttribute("message", userService.mdfyMminf(uDto));
         return "msg/message";
     }
 

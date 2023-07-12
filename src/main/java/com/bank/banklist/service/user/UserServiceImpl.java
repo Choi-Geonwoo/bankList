@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
                 System.err.println(e.toString());
                 returnParam.put("message", "실패 했습니다.");
+                returnParam.put("uDto", userDto);
                 returnParam.put("searchUrl", "/user/login");
                 return returnParam;
         }
@@ -93,5 +94,35 @@ public class UserServiceImpl implements UserService {
         int cnt = userMapper.loginIdCheck(id);
         log.info("어떻게 나오나 :ㅣ : " + cnt);
         return cnt;
+    }
+
+    // 회원정보 수정
+    @Override
+    public Map<String, Object> mdfyMminf(UserDto uDto) {
+        Map<String, Object> returnParam = new HashMap<>();
+        try {
+            
+            int cnt = userMapper.mdfyMminf(uDto);
+            if(cnt != 0 ){ 
+                log.info("1.결과값 : : : " + cnt);
+                System.out.println("1.결과값 : : : " + cnt);
+                returnParam.put("message", "성공 했습니다.");
+                returnParam.put("uDto", uDto);
+                returnParam.put("searchUrl", "/");
+            }else{
+                log.info("2.결과값 : : : " + cnt);
+                System.out.println("2.결과값 : : : " + cnt);
+                returnParam.put("message", "실패 했습니다.\n 다시 시도해주세요.");
+                returnParam.put("uDto", uDto);
+                returnParam.put("searchUrl", "/");
+            }
+        } catch (Exception e) {
+            log.error(e.toString());
+            System.out.println(e.toString());
+            returnParam.put("message", "실패 했습니다.\n 다시 시도해주세요.");
+            returnParam.put("uDto", uDto);
+            returnParam.put("searchUrl", "/user/joinMembership");
+        }
+        return returnParam;
     }
 }

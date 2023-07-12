@@ -15,4 +15,8 @@ public interface UserMapper {
 
     // 아이디 중복 체크
     public int loginIdCheck(String id);
+    
+    // 회원정보 수정
+    public int mdfyMminf(UserDto uDto);
+
 }

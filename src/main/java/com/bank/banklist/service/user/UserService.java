@@ -11,6 +11,9 @@ public interface UserService {
     
     // 회원정보 등록
     public Map<String, Object> joinMembership(UserDto uDto);
+    
+    // 회원정보 수정
+    public Map<String, Object> mdfyMminf(UserDto uDto);
 
     // 회원 가입 아이디 중복 확인
     public int loginIdCheck(String id);

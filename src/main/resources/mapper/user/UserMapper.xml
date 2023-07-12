@@ -5,8 +5,7 @@
 
 <select id = "login" parameterType="com.bank.banklist.dto.user.UserDto" resultType="com.bank.banklist.dto.user.UserDto">
           select 
-              max(id) as id ,
-              max(pwd) as pwd 
+              *
           from TB_MEMBERDATA
       where id = #{id}
 </select>
@@ -40,5 +39,12 @@
 		SELECT COUNT(id) FROM TB_MEMBERDATA WHERE id= #{id}
 	</select>
 	
-
+  <update id="mdfyMminf" parameterType="com.bank.banklist.dto.user.UserDto" >
+    update TB_MEMBERDATA
+      set NCKNM = #{ncknm},
+          EMAIL = #{email},
+          PHONE= #{phone},
+          RGSTRDATE = SYSDATE
+    where ID = #{id}
+  </update>
 </mapper>
