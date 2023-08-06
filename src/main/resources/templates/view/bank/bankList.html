@@ -10,7 +10,8 @@
 <body>
   <div layout:fragment="content">
     <br>
-    <label>은행 전체 내역 조회</label>  
+    <h3 th:text="${title}"> </h3>
+    <br>
       <form class="form" action="/bank/bankList"  id="searchForm" name="searchForm" >
 
         <select class="searchType" id="searchType" name="searchType">
@@ -32,22 +33,41 @@
     <br>
     <br>
 <table id="bDtoList">
-      <tr th:each="bDtoList : ${bDto}">
-        <!--<td th:text="${bDtoList.A_NO}">1</td>-->
+      <thead>
+        <tr>
+          <th>출금은행명</th>
+          <th>출금일자</th>
+          <th>출금적요</th>
+          <th>출금적요상세</th>
+          <th>출금액</th>
 
-        <td contenteditable="true" th:text="${bDtoList.WTHDRNAMEBANK}">1</td>
-        <td contenteditable="true" th:text="${bDtoList.WTHDRDATE}">2</td>
-        <td contenteditable="true" th:text="${bDtoList.WTHDRBRIEFS}">3</td>
-        <td contenteditable="true" th:text="${bDtoList.WTHDRBRIEFSDETAIL}">4</td>
-        <td contenteditable="true" th:text="${bDtoList.WTHDRPRICE}">5</td>
-        
-        <td contenteditable="true" th:text="${bDtoList.DPSTNAMEBANK}">6</td>
-        <td contenteditable="true" th:text="${bDtoList.DPSTDATE}">7</td>
-        <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFS}">8</td>
-        <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFSDETAIL}">9</td>
-        <td contenteditable="true" th:text="${bDtoList.DPSTDATE}">10</td>
-        <td  ><button type="button" id="searchButton" onclick="tableBtn();">버튼</button></td>
-      </tr>
+          <th>입금은행명</th>
+          <th>입금일자</th>
+          <th>입금적요</th>
+          <th>입금작요상세</th>
+          <th>입금액</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="bDtoList : ${bDto}">
+          <!--<td th:text="${bDtoList.A_NO}">1</td>-->
+  
+          <td contenteditable="true" th:text="${bDtoList.SERIAL}" style="display: none;">1</td>
+  
+          <td contenteditable="true" th:text="${bDtoList.WTHDRNAMEBANK}">1</td>
+          <td contenteditable="true" th:text="${bDtoList.WTHDRDATE}">2</td>
+          <td contenteditable="true" th:text="${bDtoList.WTHDRBRIEFS}">3</td>
+          <td contenteditable="true" th:text="${bDtoList.WTHDRBRIEFSDETAIL}">4</td>
+          <td contenteditable="true" th:text="${bDtoList.WTHDRPRICE}">5</td><!--출금액-->
+          
+          <td contenteditable="true" th:text="${bDtoList.DPSTNAMEBANK}">6</td>
+          <td contenteditable="true" th:text="${bDtoList.DPSTDATE}">7</td>
+          <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFS}">8</td>
+          <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFSDETAIL}">9</td>
+          <td contenteditable="true" th:text="${bDtoList.DPSTPRICE}">10</td> <!--입금액-->
+          <td  ><button type="button" id="searchButton" onclick="tableBtn();">버튼</button></td>
+        </tr>
+      </tbody>
     </table>
     <br>
     

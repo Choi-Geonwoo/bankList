@@ -14,7 +14,7 @@
 <body>
   <div layout:fragment="content">
     <br>
-    출금
+    <h3 th:text="${title}"> </h3>
     <a href="/bank/wthdrInsert">출금 등록</a>
     <input type="button" onclick="exportExcel();" value="엑셀 다운로드">
     <!--<label th:text="${wDto}"></label>-->

@@ -6,17 +6,104 @@
 <mapper namespace="com.bank.banklist.mapper.bank.WthdrMapper" >
     
 <select id = "wthdrList" resultType="com.bank.banklist.dto.bank.WthdrDto">
-          select 
+          select /* wthdrList */
                   a.wthdrnamebank, a.wthdrdate, a.wthdrbriefs, a.wthdrbriefsdetail, a.wthdrprice
           from tb_wthdrDtls a 
-            where a.id = #{id}
+            where 
+                  1=1
+							<choose>
+								<when test="null != id ">
+										and ( a.id = #{id})
+								</when>
+								<when test="null == id ">
+									and 1=2	
+								</when>
+							</choose>
+              order by wthdrdate
 </select>
 
-    <select id="wthdrExceInsert" parameterType="hashMap" resultType="com.bank.banklist.dto.bank.WthdrDto">
-        select 
-          #{titl_0} as  id1
-        from dual
-    </select>
+
+<select id = "wthdrListPage" resultType="com.bank.banklist.dto.bank.WthdrDto">
+      SELECT /* dpstListPage */
+        *
+      FROM
+        (
+              SELECT
+            *
+          FROM
+            (
+                      select 
+                            ROW_NUMBER() OVER ( ORDER BY to_number(REPLACE(REGEXP_REPLACE(a.wthdrdate, '[[:punct:]]', ''), ' ', '')) desc)  AS a_no,
+                            a.wthdrnamebank, a.wthdrdate, a.wthdrbriefs, a.wthdrbriefsdetail, a.wthdrprice
+                      from tb_wthdrDtls a
+                            where 1=1
+                                  <choose>
+                                        <when test="null != id">
+                                              and ( a.id = #{id})
+                                        </when>
+                                        <when test="null == id">
+                                              and 1=2	
+                                        </when>
+                                  </choose>
+                                  <choose>
+                <when test="'nameBank' == searchType">
+                  <!-- 은행 -->
+                  and (a.wthdrnamebank like '%'|| #{keyword}  ||'%' )
+                </when>
+                <when test="'brief' == searchType">
+                  <!-- 적요 -->
+                  and (a.wthdrbriefs like '%'|| #{keyword}  ||'%' )
+                </when>
+                <when test="'briefDetails' == searchType">
+                  <!-- 적요상세 -->
+                  and (a.wthdrbriefsdetail like '%'|| #{keyword}  ||'%' )
+                </when>
+              </choose>
+                            )
+          WHERE
+        a_no 	<![CDATA[ <= 	]]> (#{page} * #{rowCount})
+        )
+      WHERE (((#{page}-1) * #{rowCount}) + 1) <![CDATA[<=	]]> a_no
+</select>
+
+<select id = "wthdrListCount" resultType="com.bank.banklist.dto.bank.WthdrDto">
+       SELECT
+            count(1)
+          FROM
+            (
+                      select 
+                            ROW_NUMBER() OVER ( ORDER BY to_number(REPLACE(REGEXP_REPLACE(a.wthdrdate, '[[:punct:]]', ''), ' ', '')) desc)  AS a_no,
+                            a.wthdrnamebank, a.wthdrdate, a.wthdrbriefs, a.wthdrbriefsdetail, a.wthdrprice
+                      from tb_wthdrDtls a
+                            where 1=1
+                                  <choose>
+                                        <when test="null != id">
+                                              and ( a.id = #{id})
+                                        </when>
+                                        <when test="null == id">
+                                              and 1=2	
+                                        </when>
+                                  </choose>
+                                  <choose>
+                <when test="'nameBank' == searchType">
+                  <!-- 은행 -->
+                  and (a.wthdrnamebank like '%'|| #{keyword}  ||'%' )
+                </when>
+                <when test="'brief' == searchType">
+                  <!-- 적요 -->
+                  and (a.wthdrbriefs like '%'|| #{keyword}  ||'%' )
+                </when>
+                <when test="'briefDetails' == searchType">
+                  <!-- 적요상세 -->
+                  and (a.wthdrbriefsdetail like '%'|| #{keyword}  ||'%' )
+                </when>
+              </choose>
+                            )
+          WHERE
+        a_no 	<![CDATA[ <= 	]]> (#{page} * #{rowCount})
+        
+</select>
+   
 
     <insert id="wthdrdtlsInsert" parameterType="map" >
     INSERT 	
@@ -42,4 +129,15 @@
       )
 
     </insert>
+
+      <update id="wthdrExceUpdat" parameterType="map">
+            update TB_WTHDRDTLS
+                  set 
+                      WTHDRBRIEFS = #{wthdrBriefs},
+                      WTHDRBRIEFSDETAIL = #{wthdrBriefsDetail},
+                      WTHDRPRICE = #{wthdrPrice},
+                      RGSTRDATE = SYSDATE
+                  where 
+                      serial  = #{w_serial}
+      </update>
 </mapper>

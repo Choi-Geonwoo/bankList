@@ -18,19 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class BanklistApplicationTests2 {
     
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private BankService bankService;
 	@Test
 	public void contextLoads() {
-        try {
-            PaginationVo paginationVo = new PaginationVo(0, 0);
-        paginationVo.setId("admin");
-       
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
     }
 }

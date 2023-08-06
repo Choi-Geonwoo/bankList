@@ -1,8 +1,10 @@
 package com.bank.banklist.dto.common;
 
+import groovy.transform.ToString;
 import lombok.Data;
 
 @Data
+@ToString
 public class PaginationVo {
     /*
      * 주석에 사용된 단어 정의

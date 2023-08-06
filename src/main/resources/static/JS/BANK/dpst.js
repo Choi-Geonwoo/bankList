@@ -1,8 +1,10 @@
 
 // --------------------------------------------------------------------------------
+// 엑셀 다운로드
 var excelHandler = {
     getExcelFileName : function(){
-        return '입금_내역.xlsx';
+        let today = new Date();
+        return '입금_내역'+dateFormat(today)+'.xlsx';
     },
     getSheetName : function(){
         return '입금_내역';
@@ -14,6 +16,8 @@ var excelHandler = {
         return XLSX.utils.table_to_sheet(this.getExcelData());
     }
 }
+
+// 엑셀 다운로드
 //공통
 // 참고 출처 : https://redstapler.co/sheetjs-tutorial-create-xlsx/
 function s2ab(s) { 
@@ -22,6 +26,7 @@ function s2ab(s) {
     for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
     return buf;    
 }
+// 엑셀 다운로드
 function exportExcel(){ 
     // step 1. workbook 생성
     var wb = XLSX.utils.book_new();
@@ -39,4 +44,26 @@ function exportExcel(){
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
     
     //alert("완료 되었습니다.");
+}
+
+function dateFormat(date) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+    hour = hour >= 10 ? hour : '0' + hour;
+    minute = minute >= 10 ? minute : '0' + minute;
+    second = second >= 10 ? second : '0' + second;
+
+    return date.getFullYear() + '' + month + '' + day + '' + hour + '' + minute + '' + second;
+}
+
+
+
+function searchBtn() {
+    searchForm.submit();
 }

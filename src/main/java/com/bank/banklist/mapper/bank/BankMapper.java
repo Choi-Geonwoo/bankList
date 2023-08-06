@@ -6,15 +6,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.bank.banklist.dto.bank.WthdrDto;
 import com.bank.banklist.dto.common.PaginationVo;
 
 @Mapper
 public interface BankMapper {
-
-    
-    public List<HashMap<String, Object>> bankList(Map<String, Object> map);
-
     // 페이징 카운트
     public int bankListCount(Map<String, Object> paginationVo);
 

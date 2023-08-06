@@ -18,7 +18,7 @@ function readExcel() {
                 htmlTable += "<tr>\n";
                for(key in obj[i]){
                 
-                htmlTable += " <td> "+ obj[i][key] +" </td> \n";
+                htmlTable += " <td>"+ obj[i][key] +"</td> \n";
                }
                htmlTable += "</tr>\n";
             }

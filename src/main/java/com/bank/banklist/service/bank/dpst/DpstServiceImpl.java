@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.util.MapUtils;
 
 import com.bank.banklist.dto.bank.DpstDto;
+import com.bank.banklist.dto.common.PaginationVo;
 import com.bank.banklist.mapper.bank.DpstMapper;
 
 
@@ -32,16 +33,23 @@ public class DpstServiceImpl implements DpstService {
         for (Map<String,Object> map : param) {
             if (!MapUtils.isEmpty(map)) {
                 map.put("id", userId);
-                System.out.println(map.toString());
-                System.out.println(map.toString());
-                System.out.println(map.toString());
-                System.out.println(map.toString());
-                System.out.println(map.toString());
-                System.out.println(map.toString());
                 cnt += dpstMapper.dpstExceInsert(map);  
             }
         }
         return cnt;
+    }
+
+
+    // 페이징 처리
+    @Override
+    public List<HashMap<String, Object>> dpstListPage(PaginationVo paginationVo) {
+        return dpstMapper.dpstListPage(paginationVo);
+    }
+
+    // 페이징 처리를 위한 카운트 조회
+    @Override
+    public int dpstListCount(Map<String, Object> map) {
+        return dpstMapper.dpstListCount(map);
     }
     
 }

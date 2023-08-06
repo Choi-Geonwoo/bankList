@@ -1,0 +1,102 @@
+<!--resources/templates/thymeleafEx.html-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http//www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SheetJS CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+  <!-- FileSaver saveAs CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+  <script type="text/javascript" th:src="@{/JS/BANK/dpst.js}"></script>
+  <title>입금 내역 조회 화면</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <h3 th:text="${title}"> </h3>
+
+    <form class="form" action="/bank/dpstListPage"  id="searchForm" name="searchForm" >
+
+      <select class="searchType" id="searchType" name="searchType">
+        <option value="">전체</option>
+        <option value="nameBank" th:selected="${pageVo.searchType == 'nameBank'}">은행명</option>
+        <option value="brief" th:selected="${pageVo.searchType == 'brief'}">적요</option>
+        <option value="briefDetails" th:selected="${pageVo.searchType == 'briefDetails'}">적요상세</option>
+      </select>
+      <input type="text"  th:value="${pageVo.keyword}"  name="keyword" id="keyword">
+      
+      <button type="button" id="searchButton" onclick="searchBtn();">검색 </button>
+    </form>
+    <br>
+    <!--<label th:text="${pageVo}"></label>-->
+    <a href="/bank/dpstInsert">입금 등록</a>
+    
+    <input type="button" onclick="exportExcel();" value="엑셀 다운로드">
+    <input type="button" onclick="exportExcel2();" value="엑셀 다운로드">
+    <br>
+    <!--<div th:text="${dDto}"></div>-->
+
+  <table id="dpstList">
+
+      <thead>
+        <tr>
+          <th>입금은행명</th>
+          <th>입금일자</th>
+          <th>입금적요</th>
+          <th>입금작요상세</th>
+          <th>입금액</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr th:each="dDtoList : ${dDto}">
+
+          <td contenteditable="true" th:text="${dDtoList.dpstNameBank}">6</td>
+          <td contenteditable="true" th:text="${dDtoList.dpstDate}">7</td>
+          <td contenteditable="true" th:text="${dDtoList.dpstBriefs}">8</td>
+          <td contenteditable="true" th:text="${dDtoList.dpstBriefsDetail}">9</td>
+          <td contenteditable="true" th:text="${dDtoList.dpstPrice}">10</td> 
+
+        </tr>
+
+        </tbody>
+
+
+    </table>
+<br>
+<!-------------------------------------------->
+<div id="pagination">
+
+  <th:block th:if="${dDtoCount != 0}">
+      <!-- 맨 처음 페이지로 이동하는 버튼 -->
+      <span th:if="${pageVo.startPage > 1}">
+        <a th:href="@{'/bank/dpstListPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page=1'}" th:text="'처음&emsp;'"></a>
+    </span>
+
+  <!-- 이전 블록으로 이동하는 버튼 -->
+    <span th:if="${pageVo.isPrev == true}">
+      <a th:href="@{'/bank/dpstListPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.startPage - 1}}" th:text="'이전'"></a>
+    </span>
+
+    <!-- 시퀀스 보여주는 값을 변경. -->
+    <span th:each="pageNum : ${#numbers.sequence(pageVo.startPage, pageVo.endPage)}">
+      <a class="div2" th:href="@{'/bank/dpstListPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageNum}}" th:text="|&emsp;${pageNum}&emsp;|"></a>
+    </span>
+  
+    <!-- 다음 블록으로 이동하는 버튼 -->
+    <span th:if="${pageVo.isNext == true}">
+      <a th:href="@{'/bank/dpstListPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+|${pageVo.endPage + 1}|}" th:text="'다음'"></a>
+    </span>
+  
+    <!-- 맨 뒷 페이지로 이동하는 버튼 -->
+    <span th:if="${pageVo.endPage < pageVo.totalPageCount}">
+      <a th:href="@{'/bank/dpstListPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.totalPageCount}}" th:text="|&emsp;끝|"></a>
+    </span>
+        
+  </th:block>
+</div>  
+
+</div>
+ 
+</body>
+</html>

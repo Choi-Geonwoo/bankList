@@ -18,7 +18,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
 		log.info("■ □ \u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1");
 		log.info(" [interceptor] : " + requestURI);
-        log.info(" [session] : " + session.getAttribute("userId"));
+        //log.info(" [session] : " + session.getAttribute("userId"));
         log.info("■ □ \u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1\u25A0 \u25A1");
 		
 		if(session == null || session.getAttribute("userId") == null) {
@@ -26,8 +26,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			System.out.println("[미인증 사용자 요청]");
 			//session.setAttribute("message", "Hello world");
 			//로그인으로 redirect
-			response.sendRedirect("msg/message?message="+"/");
-			return false;
+			//response.sendRedirect("/");
+			//return false;
 		}
         // 로그인 되어있을 떄
 		return true;

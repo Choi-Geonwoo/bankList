@@ -1,8 +1,11 @@
 package com.bank.banklist.dto.bank;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 @Data
+@Component
 public class DpstDto {
     // 일련번호
   private Integer serial;

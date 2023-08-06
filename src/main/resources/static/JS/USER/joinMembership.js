@@ -25,7 +25,7 @@
         alert("이메일/전화번호 필수 항목 입니다.");
         return ;
     }
-    if(bool){
+    if(!bool){
         alert("아이디 중복 체크 해주세요.");
         return ;
     }

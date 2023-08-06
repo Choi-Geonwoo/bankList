@@ -31,8 +31,8 @@ window.onload = function(){
      var rowList = table.rows; // *1)rows collection
      //let dataJson = ["WTHDRNAMEBANK", "WTHDRDATE", "WTHDRBRIEFS","WTHDRBRIEFSDETAIL","WTHDRPRICE",
      //               "DPSTNAMEBANK" , "DPSTDATE" , "DPSTBRIEFS" ,"DPSTBRIEFSDETAIL" ,"DPSTDATE"];
-     let dataJson = ["wthdrNameBank", "wthdrDate", "wthdrBriefs", "wthdrBriefsDetail",  "wthdrPrice"
-                     ,"dpstNameBank",  "dpstDate", "dpstBriefs", "dpstBriefsDetail", "dpstPrice"];
+     let dataJson = ["serial","wthdrNameBank", "wthdrDate", "wthdrBriefs", "wthdrBriefsDetail",  "wthdrPrice"
+                     ,"dpstNameBank",  "dpstDate", "dpstBriefs", "dpstBriefsDetail",    "dpstPrice"];
      for (i=0; i<rowList.length; i++) {//thead부분 제외.
        
          var row = rowList[i];
@@ -44,17 +44,11 @@ window.onload = function(){
              var str = "";  
              for (var j = 0; j < tdsNum; j++){//row안에 있는 값 순차대로 가져오기.
                  var row_value = this.cells[j].innerHTML; //*2)cells collection
-                 //var data = new Object();
                  dataList[dataJson[j]] = row_value;
-                 //str = dataJson[j] +":"+ row_value;//값을 하나의 text값으로 만듦
-                 //data.dataJson[j] += row_value;
-                 //console.log(str);
-                 //console.log(data);
-                 // 리스트에 생성된 객체 삽입
-                 //dataList.push(str);
+                 console.log(dataJson[j]+" | "+row_value);
              };//td for
              
-            document.querySelector('p').innerText =JSON.stringify(dataList);//p태그 안에 값 넣어주기.
+            //document.querySelector('p').innerText =JSON.stringify(dataList);//p태그 안에 값 넣어주기.
             mdfynTrdtl(JSON.stringify(dataList));
           };//return
        }(row);//onclick

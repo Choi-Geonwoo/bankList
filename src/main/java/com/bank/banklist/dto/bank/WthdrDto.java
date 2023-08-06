@@ -1,11 +1,13 @@
 package com.bank.banklist.dto.bank;
 
 
+import org.springframework.stereotype.Component;
+
 import groovy.transform.ToString;
 import lombok.Data;
 
 @Data
-@ToString
+@Component
 public class WthdrDto {
 // 일련번호
   private Integer serial;
