@@ -78,16 +78,13 @@ public class WthdrController {
     @GetMapping("/bank/wthdrInsert")
     public String wthdrInsertlView(Model model){
         model.addAttribute("title", "엑셀 업로드 화면");
-       
-        return "view/bank/wthdrInsert";
+       return "view/bank/wthdrInsert";
     }
 
     // 엑셀 거래내역 등록
 		@ResponseBody
 		@PostMapping(value = "/wthdrExceInsert.do")
 		public String wthdrExceInsert(@RequestBody List<Map<String, Object>> param , @SessionAttribute(name = "userId", required = false) String userId) throws Exception {
-			//log.info("은행 거랙 내역 등록 " );
-			
 			int fileInsert = wthdrService.wthdrExceInsert(param, userId);
 			//int commCnt = commonItemService.commonItemTableInsert(param);
 			//int bankCnt = bankService.bankRackDetailsTableInsert(param);

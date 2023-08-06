@@ -4,12 +4,12 @@ server :
   
 spring :
   datasource :
-    url :   jdbc:oracle:thin:@localhost:1521/XE
-    #url : jdbc:log4jdbc:oracle:thin:@localhost:1521/XE
+    #url :   jdbc:oracle:thin:@localhost:1521/XE
+    url : jdbc:log4jdbc:oracle:thin:@localhost:1521/XE
     username : testUser
     password : 1234
-    driver-class-name : oracle.jdbc.OracleDriver
-    #driver-class-name : net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #driver-class-name : oracle.jdbc.OracleDriver
+    driver-class-name : net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   thymeleaf: # Thymeleaf (1. 루트폴더 변경, 2. 타임리프 캐시 설정 변경)
     prefix: classpath:templates/
     check-template-location: true
