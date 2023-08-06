@@ -13,8 +13,8 @@
 </head>
 <body>
   <div layout:fragment="content">
-    <br>
     <h3 th:text="${title}"> </h3>
+    <br>
 
     <form class="form" action="/bank/wthdrPage"  id="searchForm" name="searchForm" >
       
@@ -33,6 +33,7 @@
     <a href="/bank/wthdrInsert">출금 등록</a>
     <input type="button" onclick="exportExcel();" value="엑셀 다운로드">
     
+    <label th:text="${wDtoCount}"></label> 건
     <table id="wthdrList">
 
       <thead>

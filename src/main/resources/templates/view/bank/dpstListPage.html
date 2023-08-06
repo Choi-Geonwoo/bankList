@@ -14,6 +14,7 @@
 <body>
   <div layout:fragment="content">
     <h3 th:text="${title}"> </h3>
+    <br>
 
     <form class="form" action="/bank/dpstListPage"  id="searchForm" name="searchForm" >
 
@@ -35,7 +36,7 @@
     <input type="button" onclick="exportExcel2();" value="엑셀 다운로드">
     <br>
     <!--<div th:text="${dDto}"></div>-->
-
+    <label th:text="${dDtoCount}"></label> 건
   <table id="dpstList">
 
       <thead>

@@ -104,14 +104,10 @@ public class UserServiceImpl implements UserService {
             
             int cnt = userMapper.mdfyMminf(uDto);
             if(cnt != 0 ){ 
-                log.info("1.결과값 : : : " + cnt);
-                System.out.println("1.결과값 : : : " + cnt);
                 returnParam.put("message", "성공 했습니다.");
                 returnParam.put("uDto", uDto);
-                returnParam.put("searchUrl", "/");
+                returnParam.put("searchUrl", "/bank/bankList");
             }else{
-                log.info("2.결과값 : : : " + cnt);
-                System.out.println("2.결과값 : : : " + cnt);
                 returnParam.put("message", "실패 했습니다.\n 다시 시도해주세요.");
                 returnParam.put("uDto", uDto);
                 returnParam.put("searchUrl", "/");

@@ -64,12 +64,11 @@ public class WthdrController {
         paginationVo.setId(userId); // 이용자 아이디
         paginationVo.setKeyword(Common.NullCheck(keyword, "")); // 검색 조건
         paginationVo.setSearchType(Common.NullCheck(searchType,"")); //검색 타입
-        List<HashMap<String, Object>> list = null;
-        //wthdrService.wthdrListPage(paginationVo);
+        List<HashMap<String, Object>> list =  wthdrService.wthdrListPage(paginationVo);
         model.addAttribute("title", "출금 화면");
 
         //model.addAttribute("wDtoCount", wthdrService.wthdrListCount(map));
-        model.addAttribute("wDtoCount", null);
+        model.addAttribute("wDtoCount", wthdrService.wthdrListCount(map));
         model.addAttribute("wDto", list);
         model.addAttribute("page", page);
         model.addAttribute("pageVo", paginationVo);
