@@ -18,7 +18,7 @@
 
     <form class="form" action="/bank/dpstListPage"  id="searchForm" name="searchForm" >
 
-      <select class="searchType" id="searchType" name="searchType">
+      <select class="form-select" id="searchType" name="searchType">
         <option value="">전체</option>
         <option value="nameBank" th:selected="${pageVo.searchType == 'nameBank'}">은행명</option>
         <option value="brief" th:selected="${pageVo.searchType == 'brief'}">적요</option>
@@ -37,7 +37,7 @@
     <br>
     <!--<div th:text="${dDto}"></div>-->
     <label th:text="${dDtoCount}"></label> 건
-  <table id="dpstList">
+  <table id="dpstList" class="table table-hover">
 
       <thead>
         <tr>

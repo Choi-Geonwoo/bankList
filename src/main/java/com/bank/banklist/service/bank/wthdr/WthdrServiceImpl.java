@@ -53,5 +53,20 @@ public class WthdrServiceImpl implements WthdrService  {
         return wthdrMapper.wthdrListCount(paginationVo);
     }
 
+    // 출금 내역 수정
+    @Override
+    public int wthdrExceUpdat(Map<String, Object> map) {
+		int cnt = 0;
+        String serial  = String.valueOf(map.get("serial"));
+        try {
+            map.put("w_serial", serial);
+            cnt = wthdrMapper.wthdrExceUpdat(map);
+            return cnt;
+        } catch (Exception e) {
+            log.error("error " + e.toString());
+            return cnt;
+        }
+    }
+
    
 }

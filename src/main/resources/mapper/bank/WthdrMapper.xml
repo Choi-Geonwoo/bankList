@@ -34,7 +34,7 @@
             (
                       select 
                             ROW_NUMBER() OVER ( ORDER BY to_number(REPLACE(REGEXP_REPLACE(a.wthdrdate, '[[:punct:]]', ''), ' ', '')) desc)  AS a_no,
-                            a.wthdrnamebank, a.wthdrdate, a.wthdrbriefs, a.wthdrbriefsdetail, a.wthdrprice
+                            a.SERIAL ,a.wthdrnamebank, a.wthdrdate, a.wthdrbriefs, a.wthdrbriefsdetail, a.wthdrprice
                       from tb_wthdrDtls a
                             where 1=1
                                   <choose>
@@ -130,5 +130,6 @@
                       RGSTRDATE = SYSDATE
                   where 
                       serial  = #{w_serial}
+                      and ID =  #{id}
       </update>
 </mapper>

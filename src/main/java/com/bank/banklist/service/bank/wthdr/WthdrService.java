@@ -19,4 +19,7 @@ public interface WthdrService {
     
     // 페이징 카운트
     public int wthdrListCount(Map<String, Object> paginationVo);
+    
+    // 출금 내역 수정
+    public int wthdrExceUpdat(Map<String, Object> map);
 }

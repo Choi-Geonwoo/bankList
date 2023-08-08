@@ -63,3 +63,17 @@ function dateFormat(date) {
 function searchBtn() {
     searchForm.submit();
 }
+
+function wthdrUpdate(wDtoList){
+    fetch("/wthdrExceUpdat.do", {
+        method : "POST",
+        headers  :{
+            "Content-Type": "application/json",
+        },
+        body : JSON.stringify(wDtoList),
+    }) //fetch
+    .then((response) => alert("성공 했습니다." + response)) // 성공
+    .then((data) => console.log(data), location.reload())
+    .catch((error) => alert("오류 발생.") );//실패시 error 반환
+    
+}

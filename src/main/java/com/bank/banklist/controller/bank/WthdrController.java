@@ -82,12 +82,33 @@ public class WthdrController {
     }
 
     // 엑셀 거래내역 등록
-		@ResponseBody
-		@PostMapping(value = "/wthdrExceInsert.do")
-		public String wthdrExceInsert(@RequestBody List<Map<String, Object>> param , @SessionAttribute(name = "userId", required = false) String userId) throws Exception {
-			int fileInsert = wthdrService.wthdrExceInsert(param, userId);
-			//int commCnt = commonItemService.commonItemTableInsert(param);
-			//int bankCnt = bankService.bankRackDetailsTableInsert(param);
-			return String.valueOf(fileInsert);
-		}
+	@ResponseBody
+	@PostMapping(value = "/wthdrExceInsert.do")
+	public String wthdrExceInsert(@RequestBody List<Map<String, Object>> param , @SessionAttribute(name = "userId", required = false) String userId) throws Exception {
+		int fileInsert = wthdrService.wthdrExceInsert(param, userId);
+		//int commCnt = commonItemService.commonItemTableInsert(param);
+		//int bankCnt = bankService.bankRackDetailsTableInsert(param);
+		return String.valueOf(fileInsert);
+	}
+
+    // 데이터 수정
+    @ResponseBody
+	@PostMapping(value = "/wthdrExceUpdat.do")
+	public String wthdrExceUpdat(
+        @RequestBody  HashMap<String, Object> map , 
+        @SessionAttribute(name = "userId", required = false) String userId,
+        Model model ) throws Exception {
+        map.put("id", userId);
+        log.info("toString : : : " + map.toString());
+        log.info("toString : : : " + map.toString());
+        log.info("toString : : : " + map.toString());
+        log.info("toString : : : " + map.toString());
+        log.info("toString : : : " + map.toString());
+        log.info("toString : : : " + map.toString());
+		int fileUpdate = 0;
+        //= wthdrService.wthdrExceUpdat(map);
+		//int commCnt = commonItemService.commonItemTableInsert(param);
+		//int bankCnt = bankService.bankRackDetailsTableInsert(param);
+		return String.valueOf(fileUpdate);
+	}
 }

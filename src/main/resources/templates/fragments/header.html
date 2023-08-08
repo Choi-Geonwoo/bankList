@@ -7,20 +7,20 @@
     <title>홈 화면</title>
 </head>
 <body>
-    <div th:fragment="header">
+    <div th:fragment="header" class="nav nav-tabs">
         <!--header 영역입니다.-->
         <h1 th:text="${title}"></h1>
         <br>
-        <a th:if="${#strings.isEmpty(session.userId)}" href="/">홈 이동</a>
-        <a th:if="${!#strings.isEmpty(session.userId)}" th:text="${session.userId}" href="/user/mdfyMminf"></a>
-        <a th:if="${#strings.isEmpty(session.userId)}"   href="/user/login">로그인</a>
-        <a th:if="${!#strings.isEmpty(session.userId)}" href="/user/logout.do" role="button">로그아웃</a>
-        <a th:if="${#strings.isEmpty(session.userId)}"  href="/user/joinMembership">회원가입</a>
-        <a href="/bank/bankList">전체내역</a>
+        <a class="nav-link" th:if="${#strings.isEmpty(session.userId)}" href="/" >홈 이동</a>
+        <a class="nav-link" th:if="${!#strings.isEmpty(session.userId)}" th:text="${session.userId}" href="/user/mdfyMminf"></a>
+        <a class="nav-link" th:if="${#strings.isEmpty(session.userId)}"   href="/user/login">로그인</a>
+        <a class="nav-link" th:if="${!#strings.isEmpty(session.userId)}" href="/user/logout.do" role="button">로그아웃</a>
+        <a class="nav-link" th:if="${#strings.isEmpty(session.userId)}"  href="/user/joinMembership">회원가입</a>
+        <a class="nav-link" href="/bank/bankList">전체내역</a>
         <!--<a href="/bank/dpst">입금</a>-->
-        <a href="/bank/dpstListPage">입금</a>
+        <a class="nav-link" href="/bank/dpstListPage">입금</a>
         <!--<a href="/bank/wthdr">출금</a>-->
-        <a href="/bank/wthdrPage">출금</a>
+        <a class="nav-link" href="/bank/wthdrPage">출금</a>
         
     </div>
 </body>

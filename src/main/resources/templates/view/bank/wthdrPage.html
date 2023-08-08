@@ -18,7 +18,7 @@
 
     <form class="form" action="/bank/wthdrPage"  id="searchForm" name="searchForm" >
       
-      <select class="searchType" id="searchType" name="searchType">
+      <select class="selectpicker" id="searchType" name="searchType">
         <option value="">전체</option>
         <option value="nameBank" th:selected="${pageVo.searchType == 'nameBank'}">은행명</option>
         <option value="brief" th:selected="${pageVo.searchType == 'brief'}">적요</option>
@@ -26,15 +26,14 @@
       </select>
       <input type="text"  th:value="${pageVo.keyword}"  name="keyword" id="keyword">
       
-      <button type="button" id="searchButton" onclick="searchBtn();">검색 </button>
+      <button type="button" id="searchButton" onclick="searchBtn();" class="btn btn-outline-secondary">검색 </button>
     </form>
 
 
     <a href="/bank/wthdrInsert">출금 등록</a>
-    <input type="button" onclick="exportExcel();" value="엑셀 다운로드">
-    
+    <input type="button" class="btn btn-outline-primary" onclick="exportExcel();" value="엑셀 다운로드">
     <label th:text="${wDtoCount}"></label> 건
-    <table id="wthdrList">
+    <table id="wthdrList" class="table table-hover">
 
       <thead>
         <tr>
@@ -43,52 +42,62 @@
           <th>출금적요</th>
           <th>출금작요상세</th>
           <th>출금액</th>
+          <th>수정/삭제</th>
         </tr>
       </thead>
 
       <tbody>
 
-      <tr th:each="wDtoList : ${wDto}">
-        <td contenteditable="true" th:text="${wDtoList.wthdrNameBank}"></td>
-        <td contenteditable="true" th:text="${wDtoList.wthdrDate}"></td>
-        <td contenteditable="true" th:text="${wDtoList.wthdrBriefs}"></td>
-        <td contenteditable="true" th:text="${wDtoList.wthdrBriefsDetail}"></td>
-        <td contenteditable="true" th:text="${wDtoList.wthdrPrice}"></td>
-      </tr>
+      
+        <tr th:each="wDtoList : ${wDto}">
+          <td contenteditable="true" th:text="${wDtoList.serial}" style="display: none;"></td>
+          <td contenteditable="true" th:text="${wDtoList.wthdrNameBank}"></td>
+          <td contenteditable="true" th:text="${wDtoList.wthdrDate}"></td>
+          <td contenteditable="true" th:text="${wDtoList.wthdrBriefs}"></td>
+          <td contenteditable="true" th:text="${wDtoList.wthdrBriefsDetail}"></td>
+          <td contenteditable="true" th:text="${wDtoList.wthdrPrice}"></td>
+          <td >
+            <input type="button" class="btn btn-success" th:onclick="wthdrUpdate([[${wDtoList}]]);" value="수정">
+            /
+            <input type="button" class="btn btn-danger" onclick="wthdrDelete('${wDtoList}');" value="삭제">
+          </td>
+        </tr>
+
     </tbody>
 
     </table>
     
     <br>
     <!-------------------------------------------->
-    <div id="pagination">
+    <div id="pagination" class="pagination">
     
       <th:block th:if="${wDtoCount != 0}">
+        <ul class="pagination">
           <!-- 맨 처음 페이지로 이동하는 버튼 -->
           <span th:if="${pageVo.startPage > 1}">
-            <a th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page=1'}" th:text="'처음&emsp;'"></a>
-        </span>
+            <a class="page-link" th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page=1'}" th:text="'처음&emsp;'"></a>
+          </span>
     
-      <!-- 이전 블록으로 이동하는 버튼 -->
+        <!-- 이전 블록으로 이동하는 버튼 -->
         <span th:if="${pageVo.isPrev == true}">
-          <a th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.startPage - 1}}" th:text="'이전'"></a>
+          <a class="page-link" th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.startPage - 1}}" th:text="'이전'"></a>
         </span>
     
         <!-- 시퀀스 보여주는 값을 변경. -->
         <span th:each="pageNum : ${#numbers.sequence(pageVo.startPage, pageVo.endPage)}">
-          <a class="div2" th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageNum}}" th:text="|&emsp;${pageNum}&emsp;|"></a>
+          <a class="page-link" th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageNum}}" th:text="|&emsp;${pageNum}&emsp;|"></a>
         </span>
       
         <!-- 다음 블록으로 이동하는 버튼 -->
         <span th:if="${pageVo.isNext == true}">
-          <a th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+|${pageVo.endPage + 1}|}" th:text="'다음'"></a>
+          <a class="page-link" th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+|${pageVo.endPage + 1}|}" th:text="'다음'"></a>
         </span>
       
         <!-- 맨 뒷 페이지로 이동하는 버튼 -->
         <span th:if="${pageVo.endPage < pageVo.totalPageCount}">
-          <a th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.totalPageCount}}" th:text="|&emsp;끝|"></a>
+          <a class="page-link" th:href="@{'/bank/wthdrPage?searchType='+${pageVo.searchType} +'&keyword='+${pageVo.keyword}+'&page='+${pageVo.totalPageCount}}" th:text="|&emsp;끝|"></a>
         </span>
-            
+        </ul>
       </th:block>
     </div> 
 </div>

@@ -1,7 +1,7 @@
 function readExcel() {
     let input = event.target;
     let reader = new FileReader();
-    let htmlTable = "<table id='new_table'>\n ";
+    let htmlTable = "<table id='new_table' class='table table-hover'>\n ";
     const childElement = document.querySelector('#scrollDiv');
     // #child 요소 제거
     // 자식 노드 삭제

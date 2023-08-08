@@ -14,7 +14,7 @@
     <br>
       <form class="form" action="/bank/bankList"  id="searchForm" name="searchForm" >
 
-        <select class="searchType" id="searchType" name="searchType">
+        <select class="form-select" id="searchType" name="searchType">
           <option value="">없음</option>
           <option value="nameBank" th:selected="${pageVo.searchType == 'nameBank'}">은행명</option>
           <option value="brief" th:selected="${pageVo.searchType == 'brief'}">적요</option>
@@ -32,7 +32,7 @@
     </p>
     <br>
     <br>
-<table id="bDtoList">
+<table id="bDtoList" class="table table-hover">
       <thead>
         <tr>
           <th>출금은행명</th>
@@ -46,6 +46,7 @@
           <th>입금적요</th>
           <th>입금작요상세</th>
           <th>입금액</th>
+          <th>구분</th>
         </tr>
       </thead>
       <tbody>
@@ -65,7 +66,7 @@
           <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFS}">8</td>
           <td contenteditable="true" th:text="${bDtoList.DPSTBRIEFSDETAIL}">9</td>
           <td contenteditable="true" th:text="${bDtoList.DPSTPRICE}">10</td> <!--입금액-->
-          <td  ><button type="button" id="searchButton" onclick="tableBtn();">버튼</button></td>
+          <td  ><button type="button" id="searchButton" onclick="tableBtn();">수정</button></td>
         </tr>
       </tbody>
     </table>
